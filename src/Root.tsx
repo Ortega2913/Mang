@@ -2,6 +2,7 @@ import React from 'react';
 import { Composition, staticFile } from 'remotion';
 import { getVideoMetadata } from '@remotion/media-utils';
 import { VideoWithMotionGraphics } from './compositions/VideoWithMotionGraphics';
+import { JesusChildhoodMiracles, TOTAL_FRAMES } from './compositions/JesusChildhoodMiracles';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -23,6 +24,14 @@ export const RemotionRoot: React.FC = () => {
             return { durationInFrames: 900 };
           }
         }}
+      />
+      <Composition
+        id="JesusChildhoodMiracles"
+        component={JesusChildhoodMiracles}
+        fps={30}
+        width={1080}
+        height={1920}
+        durationInFrames={TOTAL_FRAMES}
       />
     </>
   );
