@@ -22,7 +22,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@puppeteer/browsers": "^3.0.4",
     "@remotion/cli": "^4.0.471",
+    "puppeteer-core": "^25.1.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "remotion": "^4.0.471"
