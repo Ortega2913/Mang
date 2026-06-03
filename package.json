@@ -1,0 +1,36 @@
+{
+  "name": "mang",
+  "version": "1.0.0",
+  "description": "Echoes in the Void — Remotion motion graphics for a dramatic short play",
+  "main": "src/index.ts",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "preview": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts EchoesInTheVoid out/EchoesInTheVoid.mp4",
+    "render:title": "remotion render src/index.ts TitleScene out/TitleScene.mp4",
+    "render:scene1": "remotion render src/index.ts Scene1-AlexApartment out/Scene1.mp4",
+    "render:scene2": "remotion render src/index.ts Scene2-GrandmaRose out/Scene2.mp4",
+    "render:scene3": "remotion render src/index.ts Scene3-Redemption out/Scene3.mp4",
+    "render:credits": "remotion render src/index.ts CreditsScene out/Credits.mp4",
+    "still": "remotion still src/index.ts EchoesInTheVoid out/still.jpg --frame=0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:38677/git/Ortega2913/Mang"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@remotion/cli": "^4.0.471",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "remotion": "^4.0.471"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
