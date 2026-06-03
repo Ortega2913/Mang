@@ -1,0 +1,26 @@
+{
+  "name": "mang-motion-graphics",
+  "version": "1.0.0",
+  "description": "Motion graphics overlay for Grok video using Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render VideoWithMotionGraphics out/output.mp4 --overwrite",
+    "render:hq": "remotion render VideoWithMotionGraphics out/output.mp4 --codec h264 --crf 18 --overwrite"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/media-utils": "^4.0.0",
+    "@remotion/player": "^4.0.0",
+    "remotion": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0"
+  },
+  "remotion": {
+    "entryPoint": "src/index.tsx"
+  }
+}
