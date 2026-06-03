@@ -5,7 +5,9 @@
   "scripts": {
     "studio": "remotion studio --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
     "render": "remotion render VideoWithMotionGraphics out/output.mp4 --overwrite --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
-    "render:hq": "remotion render VideoWithMotionGraphics out/output.mp4 --codec h264 --crf 18 --overwrite --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell"
+    "render:hq": "remotion render VideoWithMotionGraphics out/output.mp4 --codec h264 --crf 18 --overwrite --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
+    "render:jesus": "remotion render JesusChildhood out/jesus-childhood.mp4 --overwrite --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
+    "render:jesus:hq": "remotion render JesusChildhood out/jesus-childhood.mp4 --codec h264 --crf 18 --overwrite --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
