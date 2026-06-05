@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Road 2 Suxcess — Your Path to Greatness</title>
+  <meta name="description" content="Transform your mindset, unlock your potential, and build the life you deserve. Road 2 Suxcess is your community for growth." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080a0e;
+      --bg2:       #0d1018;
+      --surface:   #121620;
+      --border:    rgba(255,255,255,.07);
+      --gold:      #f5a623;
+      --gold2:     #ffd166;
+      --gold3:     #c97c1a;
+      --text:      #f0f2f8;
+      --muted:     #8a92a6;
+      --radius:    16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold3); border-radius: 3px; }
+
+    /* ── Noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ── Canvas for particles ── */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* ── Layout helpers ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    section { position: relative; z-index: 1; }
+
+    /* ══════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s, backdrop-filter .4s, border-color .4s;
+    }
+    nav.scrolled {
+      background: rgba(8,10,14,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      text-decoration: none; letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-logo span { -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500;
+      transition: color .2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold); transform: scaleX(0);
+      transition: transform .3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      color: #000 !important; padding: .5rem 1.3rem; border-radius: 999px;
+      font-weight: 700 !important; font-size: .85rem !important;
+      transition: transform .2s, box-shadow .2s !important;
+      box-shadow: 0 0 20px rgba(245,166,35,.25);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(245,166,35,.5) !important; }
+    .nav-cta::after { display: none !important; }
+    .nav-menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 1.5rem; padding: .2rem;
+    }
+
+    /* ══════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 1.5rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,.12), transparent 70%);
+      pointer-events: none; animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: .7; }
+      50%       { transform: translateX(-50%) scale(1.15); opacity: 1; }
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.3);
+      color: var(--gold2); border-radius: 999px;
+      padding: .35rem 1rem; font-size: .8rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1.8rem;
+      animation: fadeDown .8s ease both;
+    }
+    .hero-eyebrow::before { content: '✦'; font-size: .6rem; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -.03em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp .9s .15s ease both;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--gold2) 0%, var(--gold) 40%, #e55b2d 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .hero-sub {
+      color: var(--muted); font-size: 1.15rem; line-height: 1.8;
+      max-width: 580px; margin: 0 auto 2.5rem;
+      animation: fadeUp .9s .3s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .9s .45s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      color: #000; padding: .9rem 2.2rem; border-radius: 999px;
+      font-weight: 700; text-decoration: none; font-size: 1rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 30px rgba(245,166,35,.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(245,166,35,.55); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      color: var(--text); padding: .9rem 2.2rem; border-radius: 999px;
+      font-weight: 600; text-decoration: none; font-size: 1rem;
+      transition: background .2s, border-color .2s, transform .2s;
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.1); border-color: rgba(245,166,35,.4); transform: translateY(-3px); }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp .9s .6s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .stat-label { color: var(--muted); font-size: .85rem; margin-top: .3rem; }
+
+    /* ══════════════════════════════════════════════
+       MARQUEE STRIP
+    ══════════════════════════════════════════════ */
+    .marquee-strip {
+      background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold3));
+      padding: .7rem 0; overflow: hidden; position: relative; z-index: 1;
+    }
+    .marquee-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 1rem;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem;
+      color: #000; text-transform: uppercase; letter-spacing: .08em;
+      padding: 0 2rem;
+    }
+    .marquee-item::after { content: '✦'; opacity: .5; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ══════════════════════════════════════════════
+       SECTION COMMON
+    ══════════════════════════════════════════════ */
+    .section { padding: 6rem 0; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      color: var(--gold); font-size: .78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1rem;
+    }
+    .section-tag::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--gold); }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+      line-height: 1.15; letter-spacing: -.02em; margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.75;
+      max-width: 540px;
+    }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s, transform .7s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ══════════════════════════════════════════════
+       SERVICES / WHAT WE OFFER
+    ══════════════════════════════════════════════ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(245,166,35,.06), transparent);
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { transform: translateY(-6px); border-color: rgba(245,166,35,.4); box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(245,166,35,.08); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245,166,35,.15), rgba(245,166,35,.05));
+      border: 1px solid rgba(245,166,35,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.3rem;
+    }
+    .service-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem; font-weight: 700; margin-bottom: .6rem;
+    }
+    .service-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+    .service-link {
+      display: inline-flex; align-items: center; gap: .3rem;
+      color: var(--gold); font-size: .85rem; font-weight: 600;
+      text-decoration: none; margin-top: 1rem;
+      transition: gap .2s;
+    }
+    .service-link:hover { gap: .6rem; }
+
+    /* ══════════════════════════════════════════════
+       FEATURES / BIG SPLIT SECTION
+    ══════════════════════════════════════════════ */
+    .features-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .features-visual {
+      position: relative; border-radius: 24px; overflow: hidden;
+    }
+    .features-visual-inner {
+      background: linear-gradient(135deg, #1a1f30, #0d1018);
+      border: 1px solid var(--border); border-radius: 24px;
+      padding: 2.5rem; aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .features-visual-inner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 60% 40%, rgba(245,166,35,.12), transparent 60%);
+    }
+    .big-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 9rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg, rgba(245,166,35,.25), rgba(245,166,35,.05));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      position: absolute; right: 1rem; bottom: .5rem; letter-spacing: -.05em;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+    .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .feature-check {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(245,166,35,.2), rgba(245,166,35,.05));
+      border: 1px solid rgba(245,166,35,.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: .8rem; font-weight: 700;
+    }
+    .feature-text strong { display: block; font-weight: 600; margin-bottom: .2rem; }
+    .feature-text span { color: var(--muted); font-size: .875rem; line-height: 1.6; }
+
+    /* floating badge on visual */
+    .float-badge {
+      position: absolute; border-radius: 12px;
+      background: rgba(13,16,24,.9); backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      padding: .8rem 1.1rem;
+      display: flex; align-items: center; gap: .6rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      animation: floatY 4s ease-in-out infinite;
+      font-size: .82rem; font-weight: 600;
+    }
+    .float-badge.badge-1 { top: 10%; left: -20px; animation-delay: 0s; }
+    .float-badge.badge-2 { bottom: 12%; right: -20px; animation-delay: 2s; }
+    .float-badge-icon { font-size: 1.2rem; }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* ══════════════════════════════════════════════
+       TESTIMONIALS
+    ══════════════════════════════════════════════ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .testi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.8rem;
+      position: relative; overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); border-color: rgba(245,166,35,.3); }
+    .testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: .05em; margin-bottom: 1rem; }
+    .testi-text {
+      color: var(--muted); font-size: .93rem; line-height: 1.75;
+      font-style: italic; margin-bottom: 1.5rem;
+    }
+    .testi-text::before { content: '\201C'; color: var(--gold); font-size: 1.3em; }
+    .testi-text::after  { content: '\201D'; color: var(--gold); font-size: 1.3em; }
+    .testi-author { display: flex; align-items: center; gap: .9rem; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold3), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: .9rem; color: #000;
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 700; font-size: .9rem; }
+    .testi-role { color: var(--muted); font-size: .8rem; }
+
+    /* ══════════════════════════════════════════════
+       PRICING / PLANS
+    ══════════════════════════════════════════════ */
+    .plans-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem; align-items: start;
+    }
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      position: relative; transition: transform .3s, border-color .3s;
+    }
+    .plan-card:hover { transform: translateY(-5px); }
+    .plan-card.featured {
+      border-color: rgba(245,166,35,.5);
+      background: linear-gradient(160deg, #1c1e28, #141720);
+      transform: scale(1.04);
+      box-shadow: 0 0 0 1px rgba(245,166,35,.2), 0 30px 80px rgba(0,0,0,.5);
+    }
+    .plan-card.featured:hover { transform: scale(1.04) translateY(-5px); }
+    .plan-popular {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      color: #000; font-size: .72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .08em;
+      padding: .3rem 1rem; border-radius: 999px;
+    }
+    .plan-name {
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+      color: var(--muted); text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem; font-weight: 800; line-height: 1;
+      margin-bottom: .3rem;
+    }
+    .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+    .plan-period { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: .8rem; margin: 1.5rem 0 2rem; }
+    .plan-features li { display: flex; align-items: center; gap: .7rem; font-size: .9rem; color: var(--muted); }
+    .plan-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .plan-features li.off { text-decoration: line-through; opacity: .4; }
+    .plan-features li.off::before { content: '×'; color: var(--muted); }
+    .plan-btn {
+      display: block; text-align: center;
+      padding: .85rem; border-radius: 999px;
+      font-weight: 700; text-decoration: none; font-size: .95rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .plan-btn-outline {
+      border: 1px solid var(--border); color: var(--text);
+      background: transparent;
+    }
+    .plan-btn-outline:hover { border-color: rgba(245,166,35,.4); background: rgba(245,166,35,.05); }
+    .plan-btn-gold {
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      color: #000; box-shadow: 0 4px 20px rgba(245,166,35,.35);
+    }
+    .plan-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,166,35,.5); }
+
+    /* ══════════════════════════════════════════════
+       CTA BANNER
+    ══════════════════════════════════════════════ */
+    .cta-banner {
+      margin: 0 1.5rem;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 1px solid rgba(245,166,35,.2);
+      border-radius: 24px; padding: 5rem 3rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(245,166,35,.08), transparent);
+    }
+    .cta-banner-inner { position: relative; z-index: 1; }
+    .cta-banner h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 1rem;
+    }
+    .cta-banner p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.75; }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 1.5rem 2.5rem;
+      position: relative; z-index: 1;
+    }
+    .footer-grid {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 3rem; margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-brand p { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-top: .8rem; max-width: 260px; }
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1.2rem; color: var(--text);
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+    .footer-col a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1140px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      color: var(--muted); font-size: .82rem;
+    }
+    .footer-bottom a { color: var(--muted); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--gold); }
+    .social-links { display: flex; gap: .8rem; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: .9rem;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .social-link:hover { background: rgba(245,166,35,.1); border-color: rgba(245,166,35,.4); color: var(--gold); }
+
+    /* ══════════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════════ */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+
+    /* ══════════════════════════════════════════════
+       MOBILE MENU
+    ══════════════════════════════════════════════ */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(8,10,14,.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+      color: var(--text); text-decoration: none; transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; color: var(--muted); font-size: 1.8rem; cursor: pointer;
+    }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-menu-btn { display: block; }
+      .features-split { grid-template-columns: 1fr; gap: 3rem; }
+      .features-visual { order: -1; }
+      .float-badge.badge-1 { left: 10px; }
+      .float-badge.badge-2 { right: 10px; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .plan-card.featured { transform: none; }
+      .plan-card.featured:hover { transform: translateY(-5px); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero-stats { gap: 2rem; }
+      .cta-banner { padding: 3rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Particle canvas ── -->
+<canvas id="particles"></canvas>
+
+<!-- ── Mobile menu ── -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#testimonials" onclick="closeMobile()">Stories</a>
+  <a href="#pricing" onclick="closeMobile()">Pricing</a>
+  <a href="#contact" class="btn-primary" onclick="closeMobile()" style="font-size:1rem;padding:.8rem 2rem;">Start Today →</a>
+</div>
+
+<!-- ══ NAV ══════════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">R2S<span>uxcess</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Start Today →</a></li>
+  </ul>
+  <button class="nav-menu-btn" onclick="openMobile()">☰</button>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Your transformation starts here</div>
+    <h1>
+      Your Road to<br>
+      <span class="gradient">Suxcess</span> Begins<br>Now.
+    </h1>
+    <p class="hero-sub">
+      Stop waiting for the perfect moment. Join thousands who transformed their mindset,
+      built real wealth, and engineered the life they deserve — step by step.
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Join the Movement →</a>
+      <a href="#about" class="btn-secondary">▶ Watch Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num" data-target="12400">0</div>
+        <div class="stat-label">Members Transformed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="97">0</div>
+        <div class="stat-label">% Success Rate</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="300">0</div>
+        <div class="stat-label">+ Expert Resources</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">Years of Impact</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE STRIP ════════════════════════════════════════════════ -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Mindset Mastery</span>
+    <span class="marquee-item">Financial Freedom</span>
+    <span class="marquee-item">Wealth Building</span>
+    <span class="marquee-item">Elite Coaching</span>
+    <span class="marquee-item">Community Growth</span>
+    <span class="marquee-item">Level Up Daily</span>
+    <span class="marquee-item">Real Results</span>
+    <span class="marquee-item">Mindset Mastery</span>
+    <span class="marquee-item">Financial Freedom</span>
+    <span class="marquee-item">Wealth Building</span>
+    <span class="marquee-item">Elite Coaching</span>
+    <span class="marquee-item">Community Growth</span>
+    <span class="marquee-item">Level Up Daily</span>
+    <span class="marquee-item">Real Results</span>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══════════════════════════════════════════════════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-title">Everything You Need<br>to Win at Life</h2>
+      <p class="section-sub">From mindset shifts to real income strategies — we hand you the map and walk the road with you.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="transition-delay:.05s">
+        <div class="service-icon">🧠</div>
+        <div class="service-title">Mindset Coaching</div>
+        <p class="service-desc">Rewire limiting beliefs and install winner's habits. Weekly 1-on-1 sessions with certified coaches who've been where you are.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.1s">
+        <div class="service-icon">💰</div>
+        <div class="service-title">Wealth Blueprint</div>
+        <p class="service-desc">Step-by-step income strategies covering affiliate marketing, e-commerce, stocks, and multiple revenue streams built for beginners.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.15s">
+        <div class="service-icon">🚀</div>
+        <div class="service-title">Accountability Program</div>
+        <p class="service-desc">Small group pods of 5–8 people who hold each other to daily goals. Proven to triple consistency rates within 60 days.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.2s">
+        <div class="service-icon">📚</div>
+        <div class="service-title">Resource Vault</div>
+        <p class="service-desc">300+ templates, swipe files, books, courses, and tools curated by our expert community. New content added every week.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.25s">
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Goal Architecture</div>
+        <p class="service-desc">Our proprietary 12-week goal framework breaks your big dreams into daily actions. No more vague vision boards.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.3s">
+        <div class="service-icon">🌐</div>
+        <div class="service-title">Private Community</div>
+        <p class="service-desc">Access our exclusive Discord with 12,000+ members, live Q&As, expert AMAs, and a network that opens doors for real life.</p>
+        <a href="#pricing" class="service-link">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT / SPLIT ═════════════════════════════════════════════════ -->
+<section class="section" id="about" style="background: linear-gradient(180deg, transparent, rgba(245,166,35,.03), transparent);">
+  <div class="container">
+    <div class="features-split">
+      <div class="reveal">
+        <div class="section-tag">Our Philosophy</div>
+        <h2 class="section-title">Success Isn't Luck.<br>It's a System.</h2>
+        <p class="section-sub">We built Road 2 Suxcess because we lived the struggle. The late nights, the false starts, the self-doubt. Then we cracked the code — and we're sharing every piece of it.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">
+              <strong>No Fluff, Only Action</strong>
+              <span>Every lesson comes with a same-day action step. Knowledge without action is just trivia.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">
+              <strong>Proven Frameworks</strong>
+              <span>Every method is battle-tested by thousands of members before it reaches you.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">
+              <strong>Real Community, Real Results</strong>
+              <span>Your environment shapes your trajectory. Surround yourself with people who are winning.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">
+              <strong>Long-Term Thinking</strong>
+              <span>We don't sell get-rich-quick. We teach get-rich-right — sustainable, compounding success.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="features-visual reveal" style="transition-delay:.2s">
+        <div class="features-visual-inner">
+          <div style="text-align:center;position:relative;z-index:1;">
+            <div style="font-size:4rem;margin-bottom:1rem;">🏆</div>
+            <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Transform in 90 Days</div>
+            <div style="color:var(--muted);font-size:.9rem;margin-top:.5rem;">Guaranteed progress or your money back</div>
+          </div>
+          <div class="big-number">90</div>
+        </div>
+        <div class="float-badge badge-1">
+          <span class="float-badge-icon">⚡</span>
+          <div>
+            <div style="font-size:.75rem;font-weight:700;">Live Sessions</div>
+            <div style="color:var(--gold);font-size:.7rem;">Every Monday & Friday</div>
+          </div>
+        </div>
+        <div class="float-badge badge-2">
+          <span class="float-badge-icon">🔥</span>
+          <div>
+            <div style="font-size:.75rem;font-weight:700;">Active Right Now</div>
+            <div style="color:var(--gold);font-size:.7rem;"><span id="liveCount">347</span> members online</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══════════════════════════════════════════════════ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Real Stories</div>
+      <h2 class="section-title">People Who Took the Road</h2>
+      <p class="section-sub" style="margin:0 auto;">Their words, their wins. Every testimonial here is from a real member of our community.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal" style="transition-delay:.05s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">I joined R2S broke and overwhelmed. Six months later I quit my 9-5. The wealth blueprint alone was worth 10x the price.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JM</div>
+          <div>
+            <div class="testi-name">Jordan M.</div>
+            <div class="testi-role">Full-time entrepreneur, Atlanta</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.1s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The accountability pods changed everything. I tried courses for years but nothing stuck until I had people holding me to it daily.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AL</div>
+          <div>
+            <div class="testi-name">Aaliyah L.</div>
+            <div class="testi-role">Side hustle → $8K/month, Houston</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.15s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The mindset coaching unlocked something in me I didn't know existed. I stopped playing small and started making serious moves.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DK</div>
+          <div>
+            <div class="testi-name">DeShawn K.</div>
+            <div class="testi-role">Investor & creator, Chicago</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.2s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Real community, real results. Not just hype. These are people actually in the trenches building something, and they pull you up with them.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SR</div>
+          <div>
+            <div class="testi-name">Sofia R.</div>
+            <div class="testi-role">Brand founder, Miami</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.25s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">I was skeptical at first — but 90 days in, I had my first $5K online month. The goal architecture system is genuinely next level.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">TW</div>
+          <div>
+            <div class="testi-name">Tyler W.</div>
+            <div class="testi-role">E-commerce seller, Dallas</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.3s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The resource vault alone has more value than any $2,000 course I've bought. And the coaches actually respond to you. 10/10.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">NB</div>
+          <div>
+            <div class="testi-name">Naomi B.</div>
+            <div class="testi-role">Freelance strategist, LA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ═══════════════════════════════════════════════════════ -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Investment</div>
+      <h2 class="section-title">Pick Your Path</h2>
+      <p class="section-sub" style="margin:0 auto;">No long-term contracts. Cancel anytime. Every tier includes access to the core community.</p>
+    </div>
+    <div class="plans-grid reveal">
+      <div class="plan-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>$</sup>19</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Community Access (Discord)</li>
+          <li>Weekly Live Q&amp;As</li>
+          <li>Resource Vault (50+ items)</li>
+          <li class="off">1-on-1 Coaching</li>
+          <li class="off">Accountability Pod</li>
+          <li class="off">Goal Architecture Program</li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-outline">Get Started</a>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-popular">Most Popular</div>
+        <div class="plan-name">Elite</div>
+        <div class="plan-price" style="background:linear-gradient(135deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;"><sup style="-webkit-text-fill-color:transparent;">$</sup>79</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Full Resource Vault (300+)</li>
+          <li>Accountability Pod</li>
+          <li>Goal Architecture Program</li>
+          <li>Monthly 1-on-1 Coaching Call</li>
+          <li class="off">VIP Direct Access</li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-gold">Join Elite →</a>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Suxcess VIP</div>
+        <div class="plan-price"><sup>$</sup>199</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Everything in Elite</li>
+          <li>Weekly 1-on-1 Coaching</li>
+          <li>VIP Direct Access</li>
+          <li>Private Mastermind Group</li>
+          <li>Priority Content Creation Help</li>
+          <li>Revenue Review Sessions</li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-outline">Apply for VIP</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BANNER ════════════════════════════════════════════════════ -->
+<section class="section" id="contact">
+  <div class="cta-banner reveal">
+    <div class="cta-banner-inner">
+      <div class="hero-eyebrow" style="margin:0 auto 1.5rem;">Limited spots available</div>
+      <h2>The Road Is Waiting.<br>Are You Ready?</h2>
+      <p>Every day you wait is a day someone else is putting in the work. Join today and start building the life you've been dreaming about.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;">Claim Your Spot →</a>
+        <a href="mailto:hello@road2suxcess.com" class="btn-secondary">Talk to a Coach</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#" style="font-size:1.5rem;">R2Suxcess</a>
+      <p>Building a generation of unstoppable humans. Your road starts with a single decision.</p>
+      <div class="social-links" style="margin-top:1.2rem;">
+        <a class="social-link" href="#" title="Instagram">📸</a>
+        <a class="social-link" href="#" title="Twitter/X">𝕏</a>
+        <a class="social-link" href="#" title="YouTube">▶</a>
+        <a class="social-link" href="#" title="TikTok">🎵</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#services">Mindset Coaching</a></li>
+        <li><a href="#services">Wealth Blueprint</a></li>
+        <li><a href="#services">Accountability Pods</a></li>
+        <li><a href="#services">Resource Vault</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#testimonials">Success Stories</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Earnings Disclaimer</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; <span id="yr"></span> Road 2 Suxcess. All rights reserved.</div>
+    <div>Made with purpose. Built for winners.</div>
+  </div>
+</footer>
+
+<script>
+/* ── Particle system ── */
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  for (let i = 0; i < 70; i++) {
+    particles.push({
+      x: rand(0, window.innerWidth),
+      y: rand(0, window.innerHeight),
+      r: rand(0.5, 2),
+      dx: rand(-0.15, 0.15),
+      dy: rand(-0.3, -0.05),
+      o: rand(0.1, 0.5),
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(245,166,35,${p.o})`;
+      ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if (p.y < -5) { p.y = H + 5; p.x = rand(0, W); }
+      if (p.x < 0 || p.x > W) p.dx *= -1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Navbar scroll ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+/* ── Mobile menu ── */
+function openMobile()  { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── Counter animation ── */
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const isLarge = target > 100;
+  const duration = 2000;
+  const step = duration / 60;
+  let current = 0;
+  const inc = target / (duration / step);
+  const timer = setInterval(() => {
+    current = Math.min(current + inc, target);
+    el.textContent = (target > 1000
+      ? Math.floor(current).toLocaleString()
+      : Math.floor(current)) + (el.dataset.target === '97' ? '%' : target >= 300 ? '+' : '');
+    if (current >= target) clearInterval(timer);
+  }, step);
+}
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
+
+/* ── Live count flicker ── */
+const liveEl = document.getElementById('liveCount');
+setInterval(() => {
+  const base = 340 + Math.floor(Math.random() * 30);
+  liveEl.textContent = base;
+}, 5000);
+
+/* ── Year ── */
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
