@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$400 in 7 Days → $11K/Month AI System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #04040a;
+  --bg2:     #080810;
+  --surface: #0d0d18;
+  --border:  rgba(255,255,255,.06);
+  --acid:    #c8f135;
+  --acid2:   #9ed620;
+  --orange:  #ff5c1a;
+  --orange2: #ff8c55;
+  --purple:  #7c3aed;
+  --muted:   #555570;
+  --mid:     #1a1a2e;
+  --text:    #e8e8f0;
+  --dim:     #0f0f1c;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--acid2); border-radius: 2px; }
+
+/* ── Background grid ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(200,241,53,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,241,53,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Canvas ── */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: .8rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(4,4,10,.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: .8rem; font-weight: 700;
+  color: var(--acid); letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none;
+  display: flex; align-items: center; gap: .6rem;
+}
+.nav-brand::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 8px var(--acid);
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.nav-status {
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem; color: var(--muted); letter-spacing: .08em;
+}
+.nav-status span { color: var(--acid); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 60px 60px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: -100px; right: -200px;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,241,53,.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .7rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem; color: var(--acid); letter-spacing: .12em;
+  text-transform: uppercase;
+  background: rgba(200,241,53,.06);
+  border: 1px solid rgba(200,241,53,.2);
+  border-radius: 2px; padding: .45rem 1rem;
+  margin-bottom: 2rem; width: fit-content;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--acid); box-shadow: 0 0 8px var(--acid);
+  animation: blink 1.5s infinite;
+}
+.hero h1 {
+  font-size: clamp(44px, 9vw, 96px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -.04em;
+  max-width: 1000px;
+  margin-bottom: 1.5rem;
+  position: relative; z-index: 1;
+}
+.hero h1 .accent {
+  color: var(--acid);
+  text-shadow: 0 0 40px rgba(200,241,53,.4);
+}
+.hero h1 .orange {
+  color: var(--orange);
+  text-shadow: 0 0 40px rgba(255,92,26,.4);
+}
+.hero-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: .82rem; color: var(--muted);
+  max-width: 600px; line-height: 1.9;
+  margin-bottom: 3rem;
+  position: relative; z-index: 1;
+}
+.stats-row {
+  display: flex; gap: 0; width: fit-content;
+  border: 1px solid rgba(200,241,53,.2);
+  border-radius: 4px; overflow: hidden;
+  position: relative; z-index: 1;
+}
+.stat {
+  padding: 20px 32px;
+  border-right: 1px solid rgba(200,241,53,.15);
+  position: relative;
+  background: rgba(200,241,53,.03);
+  transition: background .3s;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(200,241,53,.07); }
+.stat-val {
+  font-size: 2.2rem; font-weight: 800;
+  color: var(--acid);
+  text-shadow: 0 0 20px rgba(200,241,53,.5);
+  letter-spacing: -.03em; line-height: 1;
+}
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-top: .35rem;
+}
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 60px;
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem; color: var(--muted); letter-spacing: .12em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: .5rem;
+  animation: fadeInUp 1s 1s both;
+}
+.hero-scroll::after {
+  content: ''; display: inline-block;
+  width: 40px; height: 1px; background: var(--muted);
+  animation: expand 2s 1.5s ease-in-out infinite;
+}
+@keyframes expand { 0%,100%{width:20px;opacity:.3} 50%{width:50px;opacity:.8} }
+
+/* ── SHARED LAYOUT ── */
+.page-wrap { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+/* ── SECTION ── */
+.section {
+  padding: 80px 60px;
+  border-bottom: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem; color: var(--orange);
+  text-transform: uppercase; letter-spacing: .15em;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.section-label::before {
+  content: ''; width: 24px; height: 1px; background: var(--orange);
+  box-shadow: 0 0 6px var(--orange);
+}
+.section-title {
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 1rem;
+}
+.section-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: .8rem; color: var(--muted);
+  max-width: 600px; line-height: 1.9;
+  margin-bottom: 3rem;
+}
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── TOOLS GRID ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px;
+}
+.tool-card {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 24px;
+  position: relative; overflow: hidden;
+  transition: border-color .25s, transform .25s, background .25s;
+  cursor: default;
+}
+.tool-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--acid), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.tool-card:hover {
+  border-color: rgba(200,241,53,.3);
+  background: rgba(200,241,53,.03);
+  transform: translateY(-3px);
+}
+.tool-card:hover::before { opacity: 1; }
+.tool-card-icon {
+  font-size: 1.8rem; margin-bottom: .9rem;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(200,241,53,.3));
+}
+.tool-card-name {
+  font-size: 1rem; font-weight: 700; margin-bottom: .25rem;
+  color: var(--text);
+}
+.tool-card-role {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: .7rem;
+}
+.tool-card-desc { font-size: .82rem; color: #8888aa; line-height: 1.7; }
+.tool-tag {
+  display: inline-block;
+  background: rgba(255,92,26,.12);
+  border: 1px solid rgba(255,92,26,.25);
+  color: var(--orange);
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem; padding: 2px 7px; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: .05em; margin-left: 5px;
+}
+.free-tag {
+  background: rgba(200,241,53,.08);
+  border-color: rgba(200,241,53,.2);
+  color: var(--acid);
+}
+
+/* ── FUNNEL ── */
+.funnel {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0; margin: 2.5rem 0;
+}
+.funnel-step {
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 18px 28px; text-align: center;
+  position: relative;
+  transition: border-color .25s, background .25s, box-shadow .25s;
+  background: var(--dim);
+}
+.funnel-step:hover {
+  border-color: rgba(200,241,53,.35);
+  background: rgba(200,241,53,.04);
+  box-shadow: 0 0 30px rgba(200,241,53,.06);
+}
+.funnel-step-w0 { width: 100%; max-width: 640px; }
+.funnel-step-w1 { width: 84%; max-width: 538px; }
+.funnel-step-w2 { width: 68%; max-width: 435px; }
+.funnel-step-w3 { width: 53%; max-width: 339px; }
+.funnel-step-w4 {
+  width: 40%; max-width: 258px;
+  border-color: rgba(200,241,53,.3) !important;
+  background: rgba(200,241,53,.07) !important;
+  box-shadow: 0 0 30px rgba(200,241,53,.1);
+}
+.funnel-connector {
+  width: 1px; height: 28px;
+  background: linear-gradient(to bottom, rgba(200,241,53,.4), rgba(200,241,53,.1));
+  position: relative;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.funnel-connector::after {
+  content: '▾'; color: var(--acid); font-size: .8rem;
+  position: absolute; bottom: -2px;
+  text-shadow: 0 0 8px var(--acid);
+}
+.funnel-title { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+.funnel-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .07em;
+}
+
+/* ── WARN BOX ── */
+.warn-box {
+  background: rgba(255,92,26,.05);
+  border: 1px solid rgba(255,92,26,.2);
+  border-left: 3px solid var(--orange);
+  border-radius: 3px; padding: 20px 24px;
+  margin-top: 2.5rem;
+  font-size: .85rem; color: #aaa; line-height: 1.8;
+}
+.warn-box strong { color: var(--orange); }
+
+/* ── PHASES (ACCORDION) ── */
+.phases { display: grid; gap: 2px; }
+.phase {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+  transition: border-color .25s;
+}
+.phase:hover { border-color: rgba(200,241,53,.2); }
+.phase.open { border-color: rgba(200,241,53,.3); }
+.phase-header {
+  display: flex; align-items: center; gap: 20px;
+  padding: 22px 28px; cursor: pointer;
+  user-select: none;
+  transition: background .2s;
+}
+.phase-header:hover { background: rgba(200,241,53,.03); }
+.phase-num {
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem; color: var(--muted);
+  min-width: 36px; letter-spacing: .05em;
+}
+.phase-title { font-size: 1rem; font-weight: 700; flex: 1; }
+.phase-time {
+  font-family: 'Space Mono', monospace;
+  font-size: .65rem; color: var(--acid);
+  background: rgba(200,241,53,.08);
+  border: 1px solid rgba(200,241,53,.2);
+  padding: 4px 10px; border-radius: 2px;
+}
+.phase-arrow {
+  color: var(--muted); font-size: .75rem;
+  transition: transform .3s, color .3s;
+  margin-left: .5rem;
+}
+.phase.open .phase-arrow { transform: rotate(180deg); color: var(--acid); }
+.phase.open .phase-header { border-bottom: 1px solid var(--border); }
+.phase-body {
+  padding: 0 28px 28px 84px;
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .3s;
+}
+.phase.open .phase-body { max-height: 1000px; padding-top: 20px; }
+.step-list { list-style: none; }
+.step-list li {
+  display: flex; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+  font-size: .875rem; line-height: 1.7; color: #9999bb;
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: '→';
+  color: var(--acid); font-family: 'Space Mono', monospace;
+  flex-shrink: 0; margin-top: 2px;
+  text-shadow: 0 0 8px rgba(200,241,53,.5);
+}
+.step-list li strong { color: var(--text); }
+
+/* ── SCHEDULE ── */
+.schedule { display: grid; gap: 2px; }
+.sched-row {
+  display: grid; grid-template-columns: 110px 1fr;
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 3px; overflow: hidden;
+  transition: border-color .2s;
+}
+.sched-row:hover { border-color: rgba(200,241,53,.2); }
+.sched-time {
+  padding: 16px 20px;
+  font-family: 'Space Mono', monospace; font-size: .75rem;
+  color: var(--acid); border-right: 1px solid var(--border);
+  display: flex; align-items: center;
+  background: rgba(200,241,53,.04);
+  text-shadow: 0 0 10px rgba(200,241,53,.4);
+}
+.sched-task {
+  padding: 16px 20px; font-size: .875rem; color: #9999bb;
+  display: flex; align-items: center; gap: 10px;
+}
+.sched-task b { color: var(--text); }
+
+/* ── MILESTONES ── */
+.milestones { position: relative; padding-left: 2px; }
+.milestones::before {
+  content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(200,241,53,.3) 10%, rgba(200,241,53,.3) 90%, transparent);
+}
+.milestone {
+  display: grid; grid-template-columns: 56px 1fr auto;
+  align-items: center; gap: 20px;
+  background: var(--dim); border: 1px solid var(--border);
+  padding: 18px 24px 18px 20px; border-radius: 4px;
+  margin-bottom: 2px; position: relative;
+  transition: border-color .25s, background .25s;
+}
+.milestone:hover { border-color: rgba(200,241,53,.25); background: rgba(200,241,53,.03); }
+.milestone::before {
+  content: ''; position: absolute; left: -2px; top: 50%; transform: translateY(-50%);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--bg); border: 2px solid rgba(200,241,53,.4);
+  transition: border-color .25s, box-shadow .25s;
+}
+.milestone:hover::before { border-color: var(--acid); box-shadow: 0 0 10px rgba(200,241,53,.5); }
+.m-day {
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  color: var(--orange); text-transform: uppercase; letter-spacing: .1em;
+  text-align: center;
+}
+.m-task { font-size: .875rem; color: #9999bb; }
+.m-task b { color: var(--text); }
+.m-target {
+  font-family: 'Space Mono', monospace; font-size: .9rem; font-weight: 700;
+  color: var(--acid); white-space: nowrap;
+  text-shadow: 0 0 12px rgba(200,241,53,.5);
+}
+
+/* ── SCALE GRID ── */
+.scale-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.scale-card {
+  background: var(--dim); border: 1px solid var(--border);
+  border-radius: 4px; padding: 28px;
+  position: relative; overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.scale-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--acid), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.scale-card:hover { border-color: rgba(200,241,53,.3); transform: translateY(-3px); }
+.scale-card:hover::after { opacity: 1; }
+.scale-card.highlight {
+  border-color: rgba(200,241,53,.3);
+  background: rgba(200,241,53,.04);
+  box-shadow: 0 0 40px rgba(200,241,53,.07), inset 0 1px 0 rgba(200,241,53,.15);
+}
+.scale-card-phase {
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  color: var(--orange); text-transform: uppercase; letter-spacing: .12em;
+  margin-bottom: .7rem;
+}
+.scale-card-revenue {
+  font-size: 2.4rem; font-weight: 800; color: var(--acid);
+  letter-spacing: -.03em; margin-bottom: .3rem; line-height: 1;
+  text-shadow: 0 0 30px rgba(200,241,53,.4);
+}
+.scale-card-period {
+  font-family: 'Space Mono', monospace; font-size: .7rem;
+  color: var(--muted); margin-bottom: 1.3rem;
+}
+.scale-card ul { list-style: none; font-size: .82rem; color: #8888aa; display: flex; flex-direction: column; gap: 8px; }
+.scale-card ul li { display: flex; align-items: flex-start; gap: .5rem; }
+.scale-card ul li::before { content: '▸'; color: var(--acid); flex-shrink: 0; }
+
+/* ── REVENUE TABLE ── */
+.rev-wrap {
+  border: 1px solid var(--border); border-radius: 4px;
+  overflow: hidden; margin-top: 2.5rem;
+}
+.rev-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.rev-table thead { background: rgba(200,241,53,.05); border-bottom: 1px solid rgba(200,241,53,.15); }
+.rev-table th {
+  font-family: 'Space Mono', monospace; font-size: .65rem;
+  text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+  text-align: left; padding: 14px 20px;
+}
+.rev-table td { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,.03); color: #9999bb; }
+.rev-table tr:last-child td { border-bottom: none; }
+.rev-table tr:not(.total-row):hover td { background: rgba(200,241,53,.03); }
+.total-row td {
+  background: rgba(200,241,53,.06) !important;
+  border-top: 1px solid rgba(200,241,53,.2) !important;
+  font-weight: 700; color: var(--text);
+}
+.rev-table .green { color: var(--acid); font-weight: 700; text-shadow: 0 0 8px rgba(200,241,53,.3); }
+.rev-table .orange { color: var(--orange); font-weight: 700; font-size: 1.1rem; text-shadow: 0 0 8px rgba(255,92,26,.3); }
+
+/* ── KILL LIST ── */
+.kill-grid { display: grid; gap: 2px; }
+.kill-card {
+  background: var(--dim); border: 1px solid var(--border);
+  border-left: 3px solid rgba(255,92,26,.4);
+  border-radius: 3px; overflow: hidden;
+  transition: border-color .25s;
+}
+.kill-card:hover { border-color: rgba(255,92,26,.4); border-left-color: var(--orange); }
+.kill-card.open { border-left-color: var(--orange); background: rgba(255,92,26,.03); }
+.kill-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px; cursor: pointer; user-select: none;
+  transition: background .2s;
+}
+.kill-header:hover { background: rgba(255,92,26,.04); }
+.kill-icon { font-size: 1rem; flex-shrink: 0; }
+.kill-title { font-size: .95rem; font-weight: 700; flex: 1; }
+.kill-severity {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  color: var(--orange); background: rgba(255,92,26,.1);
+  border: 1px solid rgba(255,92,26,.25);
+  padding: 3px 9px; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: .07em;
+}
+.kill-arrow { color: var(--muted); font-size: .7rem; transition: transform .3s, color .3s; margin-left: .5rem; }
+.kill-card.open .kill-arrow { transform: rotate(180deg); color: var(--orange); }
+.kill-card.open .kill-header { border-bottom: 1px solid rgba(255,92,26,.1); }
+.kill-body {
+  max-height: 0; overflow: hidden; transition: max-height .4s ease;
+  padding: 0 24px 0 56px;
+}
+.kill-card.open .kill-body { max-height: 400px; padding: 16px 24px 20px 56px; }
+.kill-body p { font-size: .875rem; color: #9999bb; line-height: 1.8; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 48px 40px;
+  font-family: 'Space Mono', monospace; font-size: .72rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+footer span { color: var(--acid); text-shadow: 0 0 10px rgba(200,241,53,.4); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { padding: 88px 24px 48px; }
+  .section { padding: 48px 24px; }
+  .stats-row { flex-wrap: wrap; }
+  .stat { flex: 1 1 120px; }
+  .scale-grid { grid-template-columns: 1fr; }
+  .sched-row { grid-template-columns: 90px 1fr; }
+  .milestone { grid-template-columns: 50px 1fr auto; gap: 12px; }
+  .phase-body { padding-left: 28px; }
+  .kill-body { padding-left: 24px; }
+  .hero-scroll { left: 24px; }
+  .milestones::before { left: 23px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">AI Income System</a>
+  <div class="nav-status">Status: <span>LIVE — 7-Day Sprint</span></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Execution Blueprint · Zero Budget · 7-Day Sprint</div>
+  <h1>From <span class="orange">$0</span> to <span class="accent">$400</span><br>in 7 Days. Then<br><span class="accent">$11K/Month</span> on<br>Autopilot.</h1>
+  <p class="hero-sub">3 hours per night. Phone + laptop + Wi-Fi. Only free tools. No audience.<br>No capital. This is the exact system — model selection, funnel, daily<br>execution, and scale path.</p>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-val">$0</div>
+      <div class="stat-label">Starting Capital</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">3 hrs</div>
+      <div class="stat-label">Per Day</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">7</div>
+      <div class="stat-label">Days to $400</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">$11K</div>
+      <div class="stat-label">Monthly Target</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to begin</div>
+</div>
+
+<div class="page-wrap">
+
+<!-- 01 THE MODEL -->
+<div class="section reveal">
+  <div class="section-label">01 — The Model</div>
+  <div class="section-title">Why AI Prompt Packs +<br>Digital Products Win at Zero Budget</div>
+  <p class="section-desc">
+    Most "make money online" plays require audience, ads, or inventory. This model needs none.
+    You use AI to create high-value digital products once, sell them infinitely on free platforms,
+    and spend your 3 hrs/night on distribution — not creation.<br><br>
+    The fastest path to $400 in 7 days with no audience is <strong style="color:var(--text)">AI-generated digital products sold via Gumroad + free short-form traffic</strong>.
+    Conversion is 2–5%. You need ~20 buyers at $20/product. Completely achievable.
+  </p>
+  <div class="tools-grid reveal">
+    <div class="tool-card">
+      <span class="tool-card-icon">🧠</span>
+      <div class="tool-card-name">ChatGPT / Claude</div>
+      <div class="tool-card-role">Content Engine <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Generate your product, write sales copy, create social hooks, draft every email. Your entire business runs through AI prompts.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">💰</span>
+      <div class="tool-card-name">Gumroad</div>
+      <div class="tool-card-role">Store + Checkout <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Zero monthly fee. Instant payouts. Built-in audience. List your product here — it's your storefront, payment processor, and delivery system in one.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">🎬</span>
+      <div class="tool-card-name">CapCut / Canva</div>
+      <div class="tool-card-role">Content Creation <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Make faceless Reels/Shorts/TikToks with text overlays and stock footage. No face, no voice required. Pure value delivery with a hook.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📲</span>
+      <div class="tool-card-name">TikTok + Instagram Reels</div>
+      <div class="tool-card-role">Free Traffic <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Short-form video is the only channel where a zero-follower account can reach 10K+ people organically on Day 1. This is your only traffic source for Week 1.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📄</span>
+      <div class="tool-card-name">Notion / Google Docs</div>
+      <div class="tool-card-role">Product Builder <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Build your digital product here. Export to PDF. Done. A well-formatted 15-page PDF template or prompt pack is a legitimate $15–$47 product.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📬</span>
+      <div class="tool-card-name">Beehiiv (free tier)</div>
+      <div class="tool-card-role">Email List <span class="free-tag tool-tag">Free</span></div>
+      <div class="tool-card-desc">Start building your list from Day 1. Give a free lead magnet. This is how you convert $400/week to $11K/month — owned audience = repeat revenue.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 THE FUNNEL -->
+<div class="section reveal">
+  <div class="section-label">02 — The Funnel</div>
+  <div class="section-title">The Exact Conversion Path</div>
+  <div class="funnel">
+    <div class="funnel-step funnel-step-w0">
+      <div class="funnel-title">Faceless Short-Form Video (TikTok / Reels)</div>
+      <div class="funnel-sub">Hook → Value → CTA → Link in Bio · 3–5 videos/day</div>
+    </div>
+    <div class="funnel-connector"></div>
+    <div class="funnel-step funnel-step-w1">
+      <div class="funnel-title">Gumroad Product Page</div>
+      <div class="funnel-sub">AI-Written Sales Copy · Social Proof · $17–$27 Price Point</div>
+    </div>
+    <div class="funnel-connector"></div>
+    <div class="funnel-step funnel-step-w2">
+      <div class="funnel-title">Free Bonus Capture (Email)</div>
+      <div class="funnel-sub">Buyer gets a freebie → joins your Beehiiv list</div>
+    </div>
+    <div class="funnel-connector"></div>
+    <div class="funnel-step funnel-step-w3">
+      <div class="funnel-title">Email Nurture Sequence (AI-Written)</div>
+      <div class="funnel-sub">3-email sequence → upsell to $47–$97 product</div>
+    </div>
+    <div class="funnel-connector"></div>
+    <div class="funnel-step funnel-step-w4">
+      <div class="funnel-title">💰 Revenue</div>
+      <div class="funnel-sub">Front-end + back-end = $11K/month at scale</div>
+    </div>
+  </div>
+  <div class="warn-box">
+    <strong>The #1 Mistake:</strong> People spend 2 weeks building the product before testing the hook. DON'T. Post the video on Day 1. Check views. If a hook gets 1,000+ views, THEN finish the product. Validate demand before you build. This is how you guarantee the $400.
+  </div>
+</div>
+
+<!-- 03 WEEK 1 -->
+<div class="section reveal">
+  <div class="section-label">03 — Week 1 Execution</div>
+  <div class="section-title">Day-by-Day to $400</div>
+  <div class="phases">
+
+    <div class="phase open">
+      <div class="phase-header" onclick="togglePhase(this.parentElement)">
+        <span class="phase-num">D01</span>
+        <span class="phase-title">Niche Lock + Product Concept + Hook Testing</span>
+        <span class="phase-time">3 hrs</span>
+        <span class="phase-arrow">▾</span>
+      </div>
+      <div class="phase-body">
+        <ul class="step-list">
+          <li><strong>Pick your niche in 20 min.</strong> Choose ONE: (a) AI productivity for 9-to-5 workers, (b) ChatGPT prompt packs for small biz owners, (c) Notion templates for freelancers, (d) faceless YouTube automation guide. These have proven Gumroad buyer demand right now.</li>
+          <li><strong>Research top 10 Gumroad products</strong> in your niche. Search "gumroad.com/discover" → filter by most popular. Screenshot the titles. These are your validation signals. <span class="tool-tag free-tag">Free</span></li>
+          <li><strong>Draft 5 video hooks</strong> using ChatGPT. Prompt: "Write 5 TikTok hooks for a video about [niche topic] that create curiosity and fear of missing out. Under 8 words each." <span class="tool-tag free-tag">ChatGPT</span></li>
+          <li><strong>Create 2 faceless videos</strong> using CapCut. Stock footage background + text overlay + trending audio. No face, no voice. Upload to TikTok AND Instagram Reels. <span class="tool-tag free-tag">CapCut</span></li>
+          <li><strong>Set up your Gumroad account.</strong> Create a free store. Don't list anything yet — just get ready.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header" onclick="togglePhase(this.parentElement)">
+        <span class="phase-num">D02</span>
+        <span class="phase-title">Analyze + Build Your Core Product</span>
+        <span class="phase-time">3 hrs</span>
+        <span class="phase-arrow">▾</span>
+      </div>
+      <div class="phase-body">
+        <ul class="step-list">
+          <li><strong>Check Day 1 video performance.</strong> If any video hit 500+ views, that hook is your winner. If not, try 3 new hooks tonight. Don't proceed to product creation until a hook sticks.</li>
+          <li><strong>Build the product using AI.</strong> Prompt Claude/ChatGPT: "Create a complete [50 ChatGPT prompts for small business owners / Notion freelance client tracker / etc.] that I can sell as a PDF. Include instructions, use cases, and formatting." <span class="tool-tag free-tag">Claude</span></li>
+          <li><strong>Format in Notion or Google Docs.</strong> Add a cover page, table of contents, section headers. Make it look designed — use a clean font, add some icons. Export as PDF. This takes 60 min max. <span class="tool-tag free-tag">Notion</span></li>
+          <li><strong>Price it at $17.</strong> Not $5, not $50. $17 is the impulse-buy sweet spot with no perceived risk. You need 24 sales to hit $400.</li>
+          <li><strong>Post 3 more videos.</strong> Keep the same hook format that worked. Volume is the algorithm signal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header" onclick="togglePhase(this.parentElement)">
+        <span class="phase-num">D03</span>
+        <span class="phase-title">Launch Your Gumroad + Write Sales Copy</span>
+        <span class="phase-time">3 hrs</span>
+        <span class="phase-arrow">▾</span>
+      </div>
+      <div class="phase-body">
+        <ul class="step-list">
+          <li><strong>Write your Gumroad product description with AI.</strong> Prompt: "Write a high-converting sales page for a digital product called [name]. It's for [audience]. It solves [problem]. Include a headline, 5 bullet benefits, a who-it's-for section, and a CTA. No fluff." <span class="tool-tag free-tag">Claude</span></li>
+          <li><strong>Create a product thumbnail</strong> in Canva. Use a dark background, bold title text, and a mockup (Canva has free digital product mockups). This alone increases conversion by 30%+. <span class="tool-tag free-tag">Canva</span></li>
+          <li><strong>List on Gumroad. Go live.</strong> Your link in bio on TikTok and Instagram now points here. This is the moment. Everything after this is traffic.</li>
+          <li><strong>Set up Beehiiv free newsletter.</strong> Create a 1-page lead magnet (a mini version of your product or a bonus checklist). Anyone who buys gets invited to subscribe for more free content. <span class="tool-tag free-tag">Beehiiv</span></li>
+          <li><strong>Post 3–5 videos with direct CTA.</strong> "Link in bio to get [benefit]." Make it specific. "Link in bio to get 50 ChatGPT prompts that saved me 3 hours today" beats "check my bio."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header" onclick="togglePhase(this.parentElement)">
+        <span class="phase-num">D04–05</span>
+        <span class="phase-title">Double Down on What's Working</span>
+        <span class="phase-time">3 hrs/day</span>
+        <span class="phase-arrow">▾</span>
+      </div>
+      <div class="phase-body">
+        <ul class="step-list">
+          <li><strong>Identify your top video.</strong> The one with the most views/saves/shares. Remake it 3 different ways: different hook, different format, different audio. Replicate the signal.</li>
+          <li><strong>Reply to EVERY comment.</strong> The algorithm rewards engagement. Ask commenters a question to extend the thread. This boosts organic reach for free.</li>
+          <li><strong>Post your product link in Reddit.</strong> Find subreddits like r/ChatGPT, r/sidehustle, r/freelance. Write a genuinely helpful post, mention your product naturally in comments when relevant. Don't spam — add value first.</li>
+          <li><strong>Create a "results" video.</strong> Screenshot your Gumroad dashboard (even 1–2 sales), post it. Social proof is a hook. "I made my first online sale with AI — here's exactly what I sold." This style consistently outperforms everything.</li>
+          <li><strong>Target: 8–12 sales by end of Day 5.</strong> If you're under 5 sales, the issue is traffic volume — post more videos. If traffic is there but no sales, tweak the product title and thumbnail.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header" onclick="togglePhase(this.parentElement)">
+        <span class="phase-num">D06–07</span>
+        <span class="phase-title">Sprint to $400 + Build the Email Engine</span>
+        <span class="phase-time">3 hrs/day</span>
+        <span class="phase-arrow">▾</span>
+      </div>
+      <div class="phase-body">
+        <ul class="step-list">
+          <li><strong>Create a second product at $27</strong> — a "premium version" or companion pack. Existing buyers get it free as a loyalty reward (this earns trust + testimonials). New visitors see a bundle option.</li>
+          <li><strong>Write your 3-email welcome sequence with AI.</strong> Email 1: deliver the freebie + personal story. Email 2: share your best free tip + soft mention of product. Email 3: limited-time offer on your $47 upsell (coming Week 2). This is where $11K/month comes from. <span class="tool-tag free-tag">Beehiiv</span></li>
+          <li><strong>Cross-post to Pinterest.</strong> Pin your Canva graphics with keywords. Pinterest pins have a 3–6 month traffic tail. Free passive clicks starting in Week 3.</li>
+          <li><strong>Sprint: post 5 videos on Day 7.</strong> Go hard. Use your best hooks again (re-post with slight variation). Volume on Day 7 closes the gap to $400.</li>
+          <li><strong>Count your sales.</strong> If you're at $280–$350, email your list a flash offer: "48-hour discount — get both products for $27 total." That closes $400 in hours.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 04 DAILY SCHEDULE -->
+<div class="section reveal">
+  <div class="section-label">04 — Daily Operating System</div>
+  <div class="section-title">Your 3-Hour Evening Routine</div>
+  <div class="schedule">
+    <div class="sched-row">
+      <div class="sched-time">6:00 PM</div>
+      <div class="sched-task"><b>15 min:</b> Check analytics. Which video is performing? Note the hook, format, and topic.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">6:15 PM</div>
+      <div class="sched-task"><b>30 min:</b> Script 3 video hooks with AI. One proven format, one new angle, one "results/proof" style.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">6:45 PM</div>
+      <div class="sched-task"><b>45 min:</b> Create 2–3 videos in CapCut. Stock footage + text + audio. No perfectionism. Done &gt; perfect.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">7:30 PM</div>
+      <div class="sched-task"><b>30 min:</b> Post all videos. Write captions with AI. Reply to all yesterday's comments.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">8:00 PM</div>
+      <div class="sched-task"><b>30 min:</b> Work on the product or email sequence. One concrete output per night.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">8:30 PM</div>
+      <div class="sched-task"><b>30 min:</b> Distribution push. Reddit post, Pinterest pin, or a DM to a micro-creator for a shoutout swap.</div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">9:00 PM</div>
+      <div class="sched-task"><b>Done.</b> Log what worked in a Google Doc. This is your system's memory. Review weekly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 MILESTONES -->
+<div class="section reveal">
+  <div class="section-label">05 — 7-Day Milestones</div>
+  <div class="section-title">Checkpoints That Keep You on Track</div>
+  <div class="milestones">
+    <div class="milestone">
+      <div class="m-day">Day 1</div>
+      <div class="m-task"><b>2 videos live.</b> Gumroad account created. Niche locked.</div>
+      <div class="m-target">$0</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 2</div>
+      <div class="m-task"><b>Product 80% built.</b> One hook getting 500+ views. 5 videos posted total.</div>
+      <div class="m-target">$0–$17</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 3</div>
+      <div class="m-task"><b>Product live on Gumroad.</b> CTA in bio. Email capture active. First sale.</div>
+      <div class="m-target">$17–$51</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 4</div>
+      <div class="m-task"><b>10 videos posted total.</b> Doubling down on winning hook. Reddit post live.</div>
+      <div class="m-target">$85–$136</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 5</div>
+      <div class="m-task"><b>Results video posted.</b> Email sequence drafted. 8–12 sales minimum.</div>
+      <div class="m-target">$136–$204</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 6</div>
+      <div class="m-task"><b>Second product listed ($27).</b> Bundle offer created. Pinterest active.</div>
+      <div class="m-target">$250–$320</div>
+    </div>
+    <div class="milestone">
+      <div class="m-day">Day 7</div>
+      <div class="m-task"><b>5-video sprint day.</b> Flash sale email to list. Close the gap.</div>
+      <div class="m-target" style="color:var(--orange);font-size:1.05rem;text-shadow:0 0 12px rgba(255,92,26,.5);">$400 ✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 SCALE -->
+<div class="section reveal">
+  <div class="section-label">06 — The Scale Machine</div>
+  <div class="section-title">How $400/Week Becomes $11K/Month</div>
+  <p class="section-desc">
+    Week 1 proves the model. Weeks 2–8 build the machine. The shift happens when you stop trading time for sales and start letting the system run. Here's how each phase multiplies revenue.
+  </p>
+  <div class="scale-grid reveal">
+    <div class="scale-card">
+      <div class="scale-card-phase">Phase 1 · Weeks 1–2</div>
+      <div class="scale-card-revenue">$400–$800</div>
+      <div class="scale-card-period">Proof of concept</div>
+      <ul>
+        <li>1 product at $17</li>
+        <li>Manual video posting</li>
+        <li>Building email list</li>
+        <li>Finding winning hooks</li>
+        <li>Reddit + Reels traffic</li>
+      </ul>
+    </div>
+    <div class="scale-card">
+      <div class="scale-card-phase">Phase 2 · Weeks 3–6</div>
+      <div class="scale-card-revenue">$2K–$5K</div>
+      <div class="scale-card-period">Systematizing</div>
+      <ul>
+        <li>3-product suite ($17/$47/$97)</li>
+        <li>Email sequence upselling</li>
+        <li>10–15 videos/week (batched)</li>
+        <li>Pinterest long-tail traffic</li>
+        <li>First affiliate partners</li>
+      </ul>
+    </div>
+    <div class="scale-card highlight">
+      <div class="scale-card-phase">Phase 3 · Month 3+</div>
+      <div class="scale-card-revenue">$11K+</div>
+      <div class="scale-card-period">The faceless machine</div>
+      <ul>
+        <li>Hire VA to post videos ($200/mo)</li>
+        <li>New product monthly</li>
+        <li>Affiliate program launched</li>
+        <li>Newsletter monetized</li>
+        <li>Running mostly without you</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rev-wrap reveal">
+    <table class="rev-table">
+      <thead>
+        <tr>
+          <th>Revenue Stream</th>
+          <th>Monthly Volume</th>
+          <th>Price</th>
+          <th>Monthly Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Front-end product ($17)</td>
+          <td>200 sales</td>
+          <td>$17</td>
+          <td class="green">$3,400</td>
+        </tr>
+        <tr>
+          <td>Mid-tier upsell ($47)</td>
+          <td>60 sales</td>
+          <td>$47</td>
+          <td class="green">$2,820</td>
+        </tr>
+        <tr>
+          <td>Premium bundle ($97)</td>
+          <td>25 sales</td>
+          <td>$97</td>
+          <td class="green">$2,425</td>
+        </tr>
+        <tr>
+          <td>Affiliate commissions</td>
+          <td>Passive</td>
+          <td>~$800</td>
+          <td class="green">$800</td>
+        </tr>
+        <tr>
+          <td>Newsletter sponsorship</td>
+          <td>1–2 sponsors</td>
+          <td>~$750</td>
+          <td class="green">$750</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3" style="text-align:right;font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;">Total Monthly</td>
+          <td class="orange">$10,195+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 07 KILL LIST -->
+<div class="section reveal">
+  <div class="section-label">07 — The Kill List</div>
+  <div class="section-title">What Will Actually Stop You</div>
+  <div class="kill-grid">
+    <div class="kill-card">
+      <div class="kill-header" onclick="toggleKill(this.parentElement)">
+        <span class="kill-icon">❌</span>
+        <span class="kill-title">Spending Week 1 building, not testing</span>
+        <span class="kill-severity">Fatal</span>
+        <span class="kill-arrow">▾</span>
+      </div>
+      <div class="kill-body">
+        <p>Post Day 1 before the product is done. Traffic data is more valuable than a polished product. A $17 PDF that 1,000 people see converts better than a $97 course 50 people see. Speed is your only advantage.</p>
+      </div>
+    </div>
+    <div class="kill-card">
+      <div class="kill-header" onclick="toggleKill(this.parentElement)">
+        <span class="kill-icon">❌</span>
+        <span class="kill-title">Posting once and waiting</span>
+        <span class="kill-severity">Fatal</span>
+        <span class="kill-arrow">▾</span>
+      </div>
+      <div class="kill-body">
+        <p>The algorithm requires volume. 1 video every 2 days will never reach escape velocity. 3–5 videos per day for 7 days is the minimum viable signal. If you can only post 1/day, add 2 more platforms (YouTube Shorts + Pinterest).</p>
+      </div>
+    </div>
+    <div class="kill-card">
+      <div class="kill-header" onclick="toggleKill(this.parentElement)">
+        <span class="kill-icon">❌</span>
+        <span class="kill-title">Pricing too low (&lt;$15) or too high (&gt;$35) in Week 1</span>
+        <span class="kill-severity">Costly</span>
+        <span class="kill-arrow">▾</span>
+      </div>
+      <div class="kill-body">
+        <p>Under $12 and buyers perceive no value — paradoxically they buy less. Over $35 with no social proof and they need more convincing than a Gumroad page provides. $17 is optimal for zero-audience cold traffic.</p>
+      </div>
+    </div>
+    <div class="kill-card">
+      <div class="kill-header" onclick="toggleKill(this.parentElement)">
+        <span class="kill-icon">❌</span>
+        <span class="kill-title">Skipping email capture</span>
+        <span class="kill-severity">Long-term killer</span>
+        <span class="kill-arrow">▾</span>
+      </div>
+      <div class="kill-body">
+        <p>Without an email list, you restart from zero every month. Every buyer who doesn't join your list is lost forever. The $11K/month number is built almost entirely on repeat buyers and email upsells. Set up Beehiiv on Day 1, even if it's ugly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<footer>
+  Built for execution, not inspiration. <span>$0 → $400 → $11K</span> · All tools free · Start tonight.
+</footer>
+
+<script>
+/* ── Background particle canvas ── */
+(function() {
+  const c = document.getElementById('bg-canvas');
+  const ctx = c.getContext('2d');
+  let W, H, nodes = [];
+  function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for (let i = 0; i < 50; i++) {
+    nodes.push({
+      x: Math.random() * innerWidth,
+      y: Math.random() * innerHeight,
+      vx: (Math.random() - .5) * .2,
+      vy: (Math.random() - .5) * .2,
+      r: Math.random() * 1.5 + .5,
+      o: Math.random() * .4 + .1,
+    });
+  }
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(200,241,53,${n.o})`;
+      ctx.fill();
+    });
+    // draw connecting lines
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(200,241,53,${.08*(1-d/120)})`;
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Phase accordion ── */
+function togglePhase(el) {
+  el.classList.toggle('open');
+}
+
+/* ── Kill list accordion ── */
+function toggleKill(el) {
+  el.classList.toggle('open');
+}
+
+/* ── Scroll reveal ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── Stagger children ── */
+document.querySelectorAll('.tools-grid, .scale-grid').forEach(grid => {
+  [...grid.children].forEach((c, i) => { c.style.transitionDelay = `${i * 0.07}s`; });
+});
+</script>
+</body>
+</html>
