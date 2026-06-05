@@ -15,10 +15,15 @@ export const RemotionRoot: React.FC = () => {
         durationInFrames={900}
         calculateMetadata={async () => {
           try {
-            const { durationInSeconds } = await getVideoMetadata(
-              staticFile('video.mp4')
-            );
-            return { durationInFrames: Math.ceil(durationInSeconds * 30) };
+            const { durationInSeconds, width, height, fps } =
+              await getVideoMetadata(staticFile('video.mp4'));
+            const resolvedFps = fps ?? 30;
+            return {
+              durationInFrames: Math.ceil(durationInSeconds * resolvedFps),
+              fps: resolvedFps,
+              width,
+              height,
+            };
           } catch {
             return { durationInFrames: 900 };
           }
