@@ -8,9 +8,11 @@ import {
 } from 'remotion';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import { CornerBrackets } from '../components/CornerBrackets';
+import { FilmGrain } from '../components/FilmGrain';
 import { LowerThird } from '../components/LowerThird';
 import { Outro } from '../components/Outro';
 import { ParticleSystem } from '../components/ParticleSystem';
+import { ProgressBar } from '../components/ProgressBar';
 import { ScanLine } from '../components/ScanLine';
 import { VignetteOverlay } from '../components/VignetteOverlay';
 
@@ -33,6 +35,8 @@ export const VideoWithMotionGraphics: React.FC = () => {
       <ParticleSystem />
       <ScanLine />
       <CornerBrackets />
+      <FilmGrain />
+      <ProgressBar />
 
       {/* ── Intro title card: 0 → 3 s ── */}
       <Sequence from={0} durationInFrames={TITLE_DURATION}>
