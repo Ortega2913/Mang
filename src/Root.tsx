@@ -10,8 +10,8 @@ export const RemotionRoot: React.FC = () => {
         id="VideoWithMotionGraphics"
         component={VideoWithMotionGraphics}
         fps={30}
-        width={1920}
-        height={1080}
+        width={1080}
+        height={1920}
         durationInFrames={900}
         calculateMetadata={async () => {
           try {

@@ -21,13 +21,12 @@ export const LowerThird: React.FC<Props> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const enter = spring({ frame, fps, config: { damping: 17, stiffness: 80 } });
-  const translateX = interpolate(enter, [0, 1], [-340, 0]);
-  const lineW = interpolate(enter, [0, 1], [0, 180]);
+  const enter = spring({ frame, fps, config: { damping: 22, stiffness: 55 } });
+  const translateY = interpolate(enter, [0, 1], [36, 0]);
 
   const exitOpacity = interpolate(
     frame,
-    [sequenceDuration - 18, sequenceDuration],
+    [sequenceDuration - 22, sequenceDuration],
     [1, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
@@ -37,77 +36,54 @@ export const LowerThird: React.FC<Props> = ({
       <div
         style={{
           position: 'absolute',
-          bottom: 110,
-          left: 70,
+          bottom: 100,
+          left: 56,
+          right: 56,
           display: 'flex',
-          alignItems: 'center',
-          gap: 18,
-          transform: `translateX(${translateX}px)`,
+          flexDirection: 'column',
+          gap: 5,
+          transform: `translateY(${translateY}px)`,
           opacity: enter * exitOpacity,
         }}
       >
-        {/* Accent bar */}
         <div
           style={{
-            width: 5,
-            height: 72,
+            position: 'absolute',
+            inset: '-10px -18px',
+            background: 'rgba(14,10,5,0.62)',
+            backdropFilter: 'blur(8px)',
             borderRadius: 3,
-            background: 'linear-gradient(to bottom, #00D4FF, #7B5CF6)',
-            boxShadow: '0 0 14px 4px rgba(0,212,255,0.55)',
+            border: '1px solid rgba(201,169,110,0.22)',
+            borderLeft: '3px solid #C9A96E',
           }}
         />
 
-        {/* Text block */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-          {/* Background pill */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: '-8px -14px',
-              background: 'rgba(0,0,8,0.55)',
-              backdropFilter: 'blur(6px)',
-              borderRadius: 6,
-              border: '1px solid rgba(0,212,255,0.15)',
-            }}
-          />
-          <div
-            style={{
-              fontSize: 30,
-              fontWeight: 700,
-              color: '#ffffff',
-              fontFamily: '"Arial",sans-serif',
-              letterSpacing: '0.04em',
-              textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-              position: 'relative',
-            }}
-          >
-            {primary}
-          </div>
-          <div
-            style={{
-              fontSize: 15,
-              fontWeight: 400,
-              color: '#00D4FF',
-              fontFamily: '"Arial",sans-serif',
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              position: 'relative',
-            }}
-          >
-            {secondary}
-          </div>
-        </div>
-
-        {/* Trailing line */}
         <div
           style={{
-            width: lineW,
-            height: 1,
-            background:
-              'linear-gradient(to right, rgba(0,212,255,0.6), transparent)',
-            alignSelf: 'center',
+            fontSize: 24,
+            fontWeight: 600,
+            color: '#F5ECD7',
+            fontFamily: 'Georgia, "Times New Roman", serif',
+            letterSpacing: '0.05em',
+            textShadow: '0 2px 8px rgba(0,0,0,0.8)',
+            position: 'relative',
           }}
-        />
+        >
+          {primary}
+        </div>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 400,
+            color: '#C9A96E',
+            fontFamily: 'Georgia, serif',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            position: 'relative',
+          }}
+        >
+          {secondary}
+        </div>
       </div>
     </AbsoluteFill>
   );

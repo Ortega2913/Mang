@@ -6,7 +6,7 @@ export const VignetteOverlay: React.FC = () => (
     style={{
       pointerEvents: 'none',
       background:
-        'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,8,0.72) 100%)',
+        'radial-gradient(ellipse at center, transparent 30%, rgba(14,10,5,0.68) 100%)',
     }}
   />
 );

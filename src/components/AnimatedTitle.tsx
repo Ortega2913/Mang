@@ -21,24 +21,20 @@ export const AnimatedTitle: React.FC<Props> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const enter = spring({ frame, fps, config: { damping: 11, stiffness: 55 } });
+  const enter = spring({ frame, fps, config: { damping: 24, stiffness: 38 } });
 
-  // Exit fade in last 18 frames of sequence
   const exitOpacity = interpolate(
     frame,
-    [sequenceDuration - 18, sequenceDuration],
+    [sequenceDuration - 22, sequenceDuration],
     [1, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
-  const titleY = interpolate(enter, [0, 1], [44, 0]);
-  const subtitleY = interpolate(enter, [0, 1], [64, 0]);
-  const lineW = interpolate(enter, [0, 1], [0, 220]);
-  const opacity = enter * exitOpacity;
-
-  // subtle deterministic glitch (no Math.random — frame-based)
-  const glitchX =
-    Math.sin(frame * 0.28 + 1.57) > 0.96 ? Math.sin(frame * 53.1) * 5 : 0;
+  const titleY = interpolate(enter, [0, 1], [24, 0]);
+  const subtitleY = interpolate(enter, [0, 1], [16, 0]);
+  const lineW = interpolate(enter, [0, 1], [0, 140]);
+  const cardOpacity = enter * exitOpacity;
+  const breathScale = 1 + 0.005 * Math.sin(frame * 0.038);
 
   return (
     <AbsoluteFill
@@ -47,92 +43,61 @@ export const AnimatedTitle: React.FC<Props> = ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 14,
         pointerEvents: 'none',
-        opacity,
+        opacity: cardOpacity,
       }}
     >
-      {/* Title with optional glitch shift */}
       <div
         style={{
-          position: 'relative',
-          transform: `translateY(${titleY}px)`,
+          padding: '30px 52px',
+          background: 'rgba(14,10,5,0.58)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: 3,
+          border: '1px solid rgba(201,169,110,0.28)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 14,
+          transform: `scale(${breathScale})`,
         }}
       >
-        {/* RGB-split ghost — blue */}
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
-            fontSize: 130,
-            fontWeight: 900,
-            color: 'rgba(0,100,255,0.35)',
-            fontFamily: '"Arial Black","Arial Bold",sans-serif',
-            letterSpacing: '-0.02em',
-            transform: `translate(${-glitchX * 1.2}px, 1px)`,
-            userSelect: 'none',
+            fontSize: 58,
+            fontWeight: 300,
+            color: '#F5ECD7',
+            fontFamily: 'Georgia, "Times New Roman", serif',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            transform: `translateY(${titleY}px)`,
+            textShadow: '0 2px 18px rgba(0,0,0,0.7)',
           }}
         >
           {title}
         </div>
-        {/* RGB-split ghost — red */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            fontSize: 130,
-            fontWeight: 900,
-            color: 'rgba(255,30,80,0.3)',
-            fontFamily: '"Arial Black","Arial Bold",sans-serif',
-            letterSpacing: '-0.02em',
-            transform: `translate(${glitchX}px, -1px)`,
-            userSelect: 'none',
-          }}
-        >
-          {title}
-        </div>
-        {/* Primary title */}
-        <div
-          style={{
-            fontSize: 130,
-            fontWeight: 900,
-            color: '#ffffff',
-            fontFamily: '"Arial Black","Arial Bold",sans-serif',
-            letterSpacing: '-0.02em',
-            textShadow:
-              '0 0 40px rgba(0,212,255,0.9), 0 0 90px rgba(0,212,255,0.4)',
-            lineHeight: 1,
-          }}
-        >
-          {title}
-        </div>
-      </div>
 
-      {/* Divider line */}
-      <div
-        style={{
-          width: lineW,
-          height: 1,
-          background:
-            'linear-gradient(to right, transparent, #00D4FF, transparent)',
-          boxShadow: '0 0 12px #00D4FF',
-          transform: `translateY(${subtitleY * 0.6}px)`,
-        }}
-      />
+        <div
+          style={{
+            width: lineW,
+            height: 1,
+            background:
+              'linear-gradient(to right, transparent, #C9A96E, transparent)',
+          }}
+        />
 
-      {/* Subtitle */}
-      <div
-        style={{
-          fontSize: 22,
-          fontWeight: 400,
-          color: '#00D4FF',
-          fontFamily: '"Arial",sans-serif',
-          letterSpacing: '0.45em',
-          textTransform: 'uppercase',
-          transform: `translateY(${subtitleY}px)`,
-        }}
-      >
-        {subtitle}
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 400,
+            color: '#C9A96E',
+            fontFamily: 'Georgia, serif',
+            letterSpacing: '0.38em',
+            textTransform: 'uppercase',
+            transform: `translateY(${subtitleY}px)`,
+          }}
+        >
+          {subtitle}
+        </div>
       </div>
     </AbsoluteFill>
   );

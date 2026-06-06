@@ -1,8 +1,9 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 
-const PERIOD = 330;   // frames between sweeps
-const DURATION = 110; // frames per sweep
+// Soft ambient highlight — like studio light brushing across the paper
+const PERIOD = 480;
+const DURATION = 180;
 
 export const ScanLine: React.FC = () => {
   const frame = useCurrentFrame();
@@ -11,8 +12,8 @@ export const ScanLine: React.FC = () => {
   if (phase >= DURATION) return null;
 
   const t = phase / DURATION;
-  const y = interpolate(t, [0, 1], [-1, 101]);
-  const opacity = interpolate(t, [0, 0.08, 0.92, 1], [0, 0.55, 0.55, 0]);
+  const y = interpolate(t, [0, 1], [-8, 108]);
+  const opacity = interpolate(t, [0, 0.1, 0.5, 0.9, 1], [0, 0.14, 0.09, 0.14, 0]);
 
   return (
     <AbsoluteFill style={{ pointerEvents: 'none' }}>
@@ -22,10 +23,9 @@ export const ScanLine: React.FC = () => {
           top: `${y}%`,
           left: 0,
           right: 0,
-          height: 3,
+          height: 100,
           background:
-            'linear-gradient(to right, transparent 0%, rgba(0,212,255,0.85) 15%, rgba(0,212,255,0.85) 85%, transparent 100%)',
-          boxShadow: '0 0 24px 6px rgba(0,212,255,0.35)',
+            'linear-gradient(to bottom, transparent, rgba(255,248,235,0.25) 50%, transparent)',
           opacity,
         }}
       />
