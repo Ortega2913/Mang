@@ -6,17 +6,22 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import { rgba } from '../utils/color';
 
 type Props = {
   primary: string;
   secondary: string;
   sequenceDuration: number;
+  accent?: string;
+  accent2?: string;
 };
 
 export const LowerThird: React.FC<Props> = ({
   primary,
   secondary,
   sequenceDuration,
+  accent = '#00D4FF',
+  accent2 = '#7B5CF6',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -52,8 +57,8 @@ export const LowerThird: React.FC<Props> = ({
             width: 5,
             height: 72,
             borderRadius: 3,
-            background: 'linear-gradient(to bottom, #00D4FF, #7B5CF6)',
-            boxShadow: '0 0 14px 4px rgba(0,212,255,0.55)',
+            background: `linear-gradient(to bottom, ${accent}, ${accent2})`,
+            boxShadow: `0 0 14px 4px ${rgba(accent, 0.55)}`,
           }}
         />
 
@@ -67,7 +72,7 @@ export const LowerThird: React.FC<Props> = ({
               background: 'rgba(0,0,8,0.55)',
               backdropFilter: 'blur(6px)',
               borderRadius: 6,
-              border: '1px solid rgba(0,212,255,0.15)',
+              border: `1px solid ${rgba(accent, 0.15)}`,
             }}
           />
           <div
@@ -87,7 +92,7 @@ export const LowerThird: React.FC<Props> = ({
             style={{
               fontSize: 15,
               fontWeight: 400,
-              color: '#00D4FF',
+              color: accent,
               fontFamily: '"Arial",sans-serif',
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
@@ -103,8 +108,7 @@ export const LowerThird: React.FC<Props> = ({
           style={{
             width: lineW,
             height: 1,
-            background:
-              'linear-gradient(to right, rgba(0,212,255,0.6), transparent)',
+            background: `linear-gradient(to right, ${rgba(accent, 0.6)}, transparent)`,
             alignSelf: 'center',
           }}
         />

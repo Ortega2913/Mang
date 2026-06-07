@@ -1,10 +1,15 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
+import { rgba } from '../utils/color';
 
 const PERIOD = 330;   // frames between sweeps
 const DURATION = 110; // frames per sweep
 
-export const ScanLine: React.FC = () => {
+type Props = {
+  color?: string;
+};
+
+export const ScanLine: React.FC<Props> = ({ color = '#00D4FF' }) => {
   const frame = useCurrentFrame();
   const phase = frame % PERIOD;
 
@@ -23,9 +28,8 @@ export const ScanLine: React.FC = () => {
           left: 0,
           right: 0,
           height: 3,
-          background:
-            'linear-gradient(to right, transparent 0%, rgba(0,212,255,0.85) 15%, rgba(0,212,255,0.85) 85%, transparent 100%)',
-          boxShadow: '0 0 24px 6px rgba(0,212,255,0.35)',
+          background: `linear-gradient(to right, transparent 0%, ${rgba(color, 0.85)} 15%, ${rgba(color, 0.85)} 85%, transparent 100%)`,
+          boxShadow: `0 0 24px 6px ${rgba(color, 0.35)}`,
           opacity,
         }}
       />

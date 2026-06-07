@@ -6,17 +6,20 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import { rgba } from '../utils/color';
 
 type Props = {
   title: string;
   subtitle: string;
   sequenceDuration: number;
+  accent?: string;
 };
 
 export const AnimatedTitle: React.FC<Props> = ({
   title,
   subtitle,
   sequenceDuration,
+  accent = '#00D4FF',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -99,8 +102,7 @@ export const AnimatedTitle: React.FC<Props> = ({
             color: '#ffffff',
             fontFamily: '"Arial Black","Arial Bold",sans-serif',
             letterSpacing: '-0.02em',
-            textShadow:
-              '0 0 40px rgba(0,212,255,0.9), 0 0 90px rgba(0,212,255,0.4)',
+            textShadow: `0 0 40px ${rgba(accent, 0.9)}, 0 0 90px ${rgba(accent, 0.4)}`,
             lineHeight: 1,
           }}
         >
@@ -113,9 +115,8 @@ export const AnimatedTitle: React.FC<Props> = ({
         style={{
           width: lineW,
           height: 1,
-          background:
-            'linear-gradient(to right, transparent, #00D4FF, transparent)',
-          boxShadow: '0 0 12px #00D4FF',
+          background: `linear-gradient(to right, transparent, ${accent}, transparent)`,
+          boxShadow: `0 0 12px ${accent}`,
           transform: `translateY(${subtitleY * 0.6}px)`,
         }}
       />
@@ -125,7 +126,7 @@ export const AnimatedTitle: React.FC<Props> = ({
         style={{
           fontSize: 22,
           fontWeight: 400,
-          color: '#00D4FF',
+          color: accent,
           fontFamily: '"Arial",sans-serif',
           letterSpacing: '0.45em',
           textTransform: 'uppercase',

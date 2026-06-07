@@ -8,7 +8,6 @@ type Particle = {
   size: number;
   speed: number;
   opacity: number;
-  hue: number;
 };
 
 // Deterministic layout via golden angle & prime-step offsets
@@ -19,10 +18,13 @@ const PARTICLES: Particle[] = Array.from({ length: 28 }, (_, i) => ({
   size: 2 + (i % 5),
   speed: 0.025 + (i % 7) * 0.007,
   opacity: 0.07 + (i % 6) * 0.035,
-  hue: 185 + (i % 4) * 25,
 }));
 
-export const ParticleSystem: React.FC = () => {
+type Props = {
+  hueBase?: number;
+};
+
+export const ParticleSystem: React.FC<Props> = ({ hueBase = 185 }) => {
   const frame = useCurrentFrame();
 
   const globalOpacity = interpolate(frame, [0, 30], [0, 1], {
@@ -34,6 +36,7 @@ export const ParticleSystem: React.FC = () => {
       {PARTICLES.map((p) => {
         const y = ((p.startY - frame * p.speed * 100) % 110 + 110) % 110 - 10;
         const pulse = 1 + 0.18 * Math.sin(frame * 0.05 + p.id * 1.3);
+        const hue = hueBase + (p.id % 4) * 25;
 
         return (
           <div
@@ -45,8 +48,8 @@ export const ParticleSystem: React.FC = () => {
               width: p.size * pulse,
               height: p.size * pulse,
               borderRadius: '50%',
-              backgroundColor: `hsla(${p.hue}, 100%, 68%, ${p.opacity})`,
-              boxShadow: `0 0 ${p.size * 4}px ${p.size * 1.5}px hsla(${p.hue}, 100%, 68%, ${p.opacity * 0.45})`,
+              backgroundColor: `hsla(${hue}, 100%, 68%, ${p.opacity})`,
+              boxShadow: `0 0 ${p.size * 4}px ${p.size * 1.5}px hsla(${hue}, 100%, 68%, ${p.opacity * 0.45})`,
               transform: 'translate(-50%, -50%)',
             }}
           />

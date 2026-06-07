@@ -6,8 +6,21 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import { rgba } from '../utils/color';
 
-export const Outro: React.FC = () => {
+type Props = {
+  brand?: string;
+  tagline?: string;
+  accent?: string;
+  accent2?: string;
+};
+
+export const Outro: React.FC<Props> = ({
+  brand = 'GROK',
+  tagline = 'xAI · 2026',
+  accent = '#00D4FF',
+  accent2 = '#7B5CF6',
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -50,33 +63,31 @@ export const Outro: React.FC = () => {
             color: '#ffffff',
             fontFamily: '"Arial Black","Arial Bold",sans-serif',
             letterSpacing: '-0.02em',
-            textShadow:
-              '0 0 30px rgba(0,212,255,0.9), 0 0 70px rgba(0,212,255,0.4)',
+            textShadow: `0 0 30px ${rgba(accent, 0.9)}, 0 0 70px ${rgba(accent, 0.4)}`,
           }}
         >
-          GROK
+          {brand}
         </div>
 
         <div
           style={{
             width: lineW,
             height: 1,
-            background:
-              'linear-gradient(to right, transparent, #00D4FF 30%, #7B5CF6 70%, transparent)',
-            boxShadow: '0 0 12px rgba(0,212,255,0.7)',
+            background: `linear-gradient(to right, transparent, ${accent} 30%, ${accent2} 70%, transparent)`,
+            boxShadow: `0 0 12px ${rgba(accent, 0.7)}`,
           }}
         />
 
         <div
           style={{
             fontSize: 14,
-            color: '#00D4FF',
+            color: accent,
             fontFamily: '"Arial",sans-serif',
             letterSpacing: '0.5em',
             textTransform: 'uppercase',
           }}
         >
-          xAI · 2026
+          {tagline}
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

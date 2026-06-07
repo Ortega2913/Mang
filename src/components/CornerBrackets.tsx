@@ -7,11 +7,14 @@ import {
   useVideoConfig,
 } from 'remotion';
 
-const COLOR = '#00D4FF';
 const ARM = 60;
 const PAD = 32;
 
-export const CornerBrackets: React.FC = () => {
+type Props = {
+  color?: string;
+};
+
+export const CornerBrackets: React.FC<Props> = ({ color = '#00D4FF' }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
 
@@ -56,7 +59,7 @@ export const CornerBrackets: React.FC = () => {
               y1={c.y}
               x2={c.x + c.dx * len}
               y2={c.y}
-              stroke={COLOR}
+              stroke={color}
               strokeWidth={3}
               strokeLinecap="square"
             />
@@ -65,7 +68,7 @@ export const CornerBrackets: React.FC = () => {
               y1={c.y}
               x2={c.x}
               y2={c.y + c.dy * len}
-              stroke={COLOR}
+              stroke={color}
               strokeWidth={3}
               strokeLinecap="square"
             />

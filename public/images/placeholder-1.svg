@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2310"/>
+      <stop offset="100%" stop-color="#05070C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg1)"/>
+  <circle cx="1480" cy="260" r="440" fill="#F2B84B" opacity="0.10"/>
+  <circle cx="360" cy="880" r="360" fill="#3E6FD9" opacity="0.08"/>
+  <text x="960" y="500" font-family="Arial, sans-serif" font-size="56" font-weight="900" letter-spacing="6" fill="#F2B84B" text-anchor="middle">PLACEHOLDER — SCENE 1 · ORIGINS</text>
+  <text x="960" y="558" font-family="Arial, sans-serif" font-size="24" letter-spacing="8" fill="#9FB4CC" text-anchor="middle">REPLACE WITH YOUR OWN PHOTO OR FOOTAGE STILL</text>
+  <text x="960" y="604" font-family="Arial, sans-serif" font-size="18" fill="#5C6B82" text-anchor="middle">public/images/placeholder-1.svg</text>
+</svg>
