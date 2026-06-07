@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B1640"/>
+      <stop offset="100%" stop-color="#0A0612"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <circle cx="420" cy="260" r="430" fill="#6B4FE0" opacity="0.10"/>
+  <circle cx="1500" cy="880" r="370" fill="#E8C547" opacity="0.08"/>
+  <text x="960" y="500" font-family="Arial, sans-serif" font-size="50" font-weight="900" letter-spacing="5" fill="#6B4FE0" text-anchor="middle">STRATEGY — SCRIPTURE BOMBS</text>
+  <text x="960" y="556" font-family="Arial, sans-serif" font-size="22" letter-spacing="7" fill="#9C93B5" text-anchor="middle">REPLACE WITH YOUR OWN B-ROLL / LIFESTYLE SHOT</text>
+  <text x="960" y="600" font-family="Arial, sans-serif" font-size="17" fill="#5C5470" text-anchor="middle">public/images/sw-strategy-2-scripture.svg</text>
+</svg>
