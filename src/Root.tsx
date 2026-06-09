@@ -5,6 +5,11 @@ import { VideoWithMotionGraphics } from './compositions/VideoWithMotionGraphics'
 import { DocumentaryTemplate } from './compositions/DocumentaryTemplate';
 import { exampleConfig } from './template/exampleConfig';
 import { spiritualWarfareConfig } from './template/spiritualWarfareConfig';
+import { darkEmpireConfig } from './template/darkEmpireConfig';
+import { neonChroniclesConfig } from './template/neonChroniclesConfig';
+import { trueCrimeConfig } from './template/trueCrimeConfig';
+import { titanBlueprintConfig } from './template/titanBlueprintConfig';
+import { collapseRiseConfig } from './template/collapseRiseConfig';
 import { getTemplateDuration, TemplateConfig } from './template/types';
 
 export const RemotionRoot: React.FC = () => {
@@ -54,6 +59,42 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         durationInFrames={getTemplateDuration(spiritualWarfareConfig)}
         defaultProps={{ config: spiritualWarfareConfig }}
+        calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
+          durationInFrames: getTemplateDuration(props.config),
+        })}
+      />
+      {/* ── MagnatesMedia-style niche templates ── */}
+      <Composition id="DarkEmpire" component={DocumentaryTemplate} fps={30} width={1920} height={1080}
+        durationInFrames={getTemplateDuration(darkEmpireConfig)}
+        defaultProps={{ config: darkEmpireConfig }}
+        calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
+          durationInFrames: getTemplateDuration(props.config),
+        })}
+      />
+      <Composition id="NeonChronicles" component={DocumentaryTemplate} fps={30} width={1920} height={1080}
+        durationInFrames={getTemplateDuration(neonChroniclesConfig)}
+        defaultProps={{ config: neonChroniclesConfig }}
+        calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
+          durationInFrames: getTemplateDuration(props.config),
+        })}
+      />
+      <Composition id="TrueCrimeFiles" component={DocumentaryTemplate} fps={30} width={1920} height={1080}
+        durationInFrames={getTemplateDuration(trueCrimeConfig)}
+        defaultProps={{ config: trueCrimeConfig }}
+        calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
+          durationInFrames: getTemplateDuration(props.config),
+        })}
+      />
+      <Composition id="TitansBlueprint" component={DocumentaryTemplate} fps={30} width={1920} height={1080}
+        durationInFrames={getTemplateDuration(titanBlueprintConfig)}
+        defaultProps={{ config: titanBlueprintConfig }}
+        calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
+          durationInFrames: getTemplateDuration(props.config),
+        })}
+      />
+      <Composition id="CollapseAndRise" component={DocumentaryTemplate} fps={30} width={1920} height={1080}
+        durationInFrames={getTemplateDuration(collapseRiseConfig)}
+        defaultProps={{ config: collapseRiseConfig }}
         calculateMetadata={async ({ props }: { props: { config: TemplateConfig } }) => ({
           durationInFrames: getTemplateDuration(props.config),
         })}

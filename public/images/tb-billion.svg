@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <radialGradient id="rg" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#7A5C1E" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#060504" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#060504"/>
+      <stop offset="60%" stop-color="#7A5C1E" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#060504"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="#060504"/>
+  <rect width="1920" height="1080" fill="url(#rg)"/>
+  <rect width="1920" height="1080" fill="url(#lg)"/>
+  <!-- grid lines -->
+  <line x1="0" y1="360" x2="1920" y2="360" stroke="#E8D5A3" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#E8D5A3" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="640" y1="0" x2="640" y2="1080" stroke="#E8D5A3" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="1280" y1="0" x2="1280" y2="1080" stroke="#E8D5A3" stroke-opacity="0.05" stroke-width="1"/>
+  <!-- accent bar -->
+  <rect x="0" y="0" width="6" height="1080" fill="#E8D5A3" opacity="0.6"/>
+  <!-- center label -->
+  <text x="960" y="510" text-anchor="middle" font-family="Arial" font-size="22" fill="#E8D5A3" opacity="0.5" letter-spacing="8">TITANS BLUEPRINT</text>
+  <text x="960" y="565" text-anchor="middle" font-family="Arial" font-size="42" font-weight="bold" fill="white" opacity="0.18">THE BILLION</text>
+  <text x="960" y="610" text-anchor="middle" font-family="Arial" font-size="14" fill="#E8D5A3" opacity="0.35" letter-spacing="4">REPLACE WITH YOUR B-ROLL · TB-BILLION</text>
+  <!-- corner marks -->
+  <polyline points="40,40 40,80 80,80" fill="none" stroke="#E8D5A3" stroke-width="2" opacity="0.5"/>
+  <polyline points="1880,40 1880,80 1840,80" fill="none" stroke="#E8D5A3" stroke-width="2" opacity="0.5"/>
+  <polyline points="40,1040 40,1000 80,1000" fill="none" stroke="#E8D5A3" stroke-width="2" opacity="0.5"/>
+  <polyline points="1880,1040 1880,1000 1840,1000" fill="none" stroke="#E8D5A3" stroke-width="2" opacity="0.5"/>
+</svg>
