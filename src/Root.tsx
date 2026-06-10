@@ -3,6 +3,7 @@ import { Composition, staticFile } from 'remotion';
 import { getVideoMetadata } from '@remotion/media-utils';
 import { VideoWithMotionGraphics } from './compositions/VideoWithMotionGraphics';
 import { DocumentaryTemplate } from './compositions/DocumentaryTemplate';
+import { ConcertHype, CONCERT_HYPE_DURATION } from './compositions/ConcertHype';
 import { exampleConfig } from './template/exampleConfig';
 import { spiritualWarfareConfig } from './template/spiritualWarfareConfig';
 import { darkEmpireConfig } from './template/darkEmpireConfig';
@@ -15,6 +16,18 @@ import { getTemplateDuration, TemplateConfig } from './template/types';
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* Concert hype clip generated from a single still photo —
+          Ken Burns push-in, sweeping stage lights, smoke/embers,
+          crowd phone-flashes, and kinetic title/caption. */}
+      <Composition
+        id="ConcertHype"
+        component={ConcertHype}
+        fps={30}
+        width={1920}
+        height={1080}
+        durationInFrames={CONCERT_HYPE_DURATION}
+      />
+
       <Composition
         id="VideoWithMotionGraphics"
         component={VideoWithMotionGraphics}
