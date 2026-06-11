@@ -3,3 +3,4 @@ out/
 .remotion/
 *.tsbuildinfo
 dist/
+!visioai/dist/
