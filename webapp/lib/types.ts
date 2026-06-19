@@ -1,15 +1,7 @@
-export type Mode = "chat" | "image" | "video";
-
-export type Attachment = {
-  type: "image" | "video";
-  url: string;
-};
-
 export type Message = {
   id: string;
   role: "user" | "assistant";
   content: string;
-  attachment?: Attachment;
   pending?: boolean;
 };
 
@@ -25,3 +17,31 @@ export const TEXT_MODELS = [
   { id: "llama", label: "Llama (free)" },
   { id: "deepseek", label: "DeepSeek (free)" },
 ] as const;
+
+export const IMAGE_MODELS = [
+  { id: "flux", label: "Flux (best quality)" },
+  { id: "flux-realism", label: "Flux Realism" },
+  { id: "turbo", label: "Turbo (fastest)" },
+] as const;
+
+export const ASPECT_RATIOS = [
+  { id: "1:1", label: "Square", width: 1024, height: 1024 },
+  { id: "16:9", label: "Landscape", width: 1280, height: 720 },
+  { id: "9:16", label: "Portrait", width: 720, height: 1280 },
+] as const;
+
+export type ImageItem = {
+  id: string;
+  prompt: string;
+  url: string;
+  model: string;
+  aspectRatio: string;
+  createdAt: number;
+};
+
+export type VideoItem = {
+  id: string;
+  prompt: string;
+  url: string;
+  createdAt: number;
+};

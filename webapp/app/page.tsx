@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import MessageBubble from "@/components/MessageBubble";
 import ComposerBar from "@/components/ComposerBar";
-import { Conversation, Mode, Message } from "@/lib/types";
+import NavBar from "@/components/NavBar";
+import { Conversation, Message } from "@/lib/types";
 
 const STORAGE_KEY = "grok-clone-conversations";
 
@@ -19,7 +20,6 @@ function newConversation(): Conversation {
 export default function Home() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [mode, setMode] = useState<Mode>("chat");
   const [model, setModel] = useState("openai");
   const [busy, setBusy] = useState(false);
 
@@ -74,53 +74,28 @@ export default function Home() {
     setBusy(true);
 
     try {
-      if (mode === "chat") {
-        const history = [...active.messages, userMsg].map((m) => ({
-          role: m.role,
-          content: m.content,
-        }));
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: history, model }),
-        });
-        const data = await res.json();
-        updateActive((c) => ({
-          ...c,
-          messages: c.messages.map((m) =>
-            m.id === pendingMsg.id
-              ? {
-                  ...m,
-                  pending: false,
-                  content: data.content ?? data.error ?? "Something went wrong.",
-                }
-              : m
-          ),
-        }));
-      } else {
-        const endpoint = mode === "image" ? "/api/image" : "/api/video";
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: text }),
-        });
-        const data = await res.json();
-        updateActive((c) => ({
-          ...c,
-          messages: c.messages.map((m) =>
-            m.id === pendingMsg.id
-              ? {
-                  ...m,
-                  pending: false,
-                  content: data.error ? data.error : "",
-                  attachment: data.url
-                    ? { type: mode === "image" ? "image" : "video", url: data.url }
-                    : undefined,
-                }
-              : m
-          ),
-        }));
-      }
+      const history = [...active.messages, userMsg].map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history, model }),
+      });
+      const data = await res.json();
+      updateActive((c) => ({
+        ...c,
+        messages: c.messages.map((m) =>
+          m.id === pendingMsg.id
+            ? {
+                ...m,
+                pending: false,
+                content: data.content ?? data.error ?? "Something went wrong.",
+              }
+            : m
+        ),
+      }));
     } catch (err) {
       updateActive((c) => ({
         ...c,
@@ -136,40 +111,40 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen">
-      <Sidebar
-        conversations={conversations}
-        activeId={activeId}
-        onSelect={setActiveId}
-        onNewChat={handleNewChat}
-      />
-      <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-center border-b border-grok-border py-3 text-sm font-medium text-grok-accent/70">
-          Grok Clone
-        </header>
-        <main className="flex-1 overflow-y-auto px-4 py-6">
-          <div className="mx-auto flex max-w-2xl flex-col gap-4">
-            {!active?.messages.length && (
-              <div className="mt-24 text-center text-grok-accent/40">
-                <p className="text-2xl font-semibold text-grok-accent/70">
-                  Ask anything, generate images, or create videos.
-                </p>
-                <p className="mt-2 text-sm">Free clone, free models, no API keys required for chat & images.</p>
-              </div>
-            )}
-            {active?.messages.map((m) => (
-              <MessageBubble key={m.id} message={m} />
-            ))}
-          </div>
-        </main>
-        <ComposerBar
-          mode={mode}
-          onModeChange={setMode}
-          model={model}
-          onModelChange={setModel}
-          onSend={handleSend}
-          disabled={busy}
+    <div className="flex h-screen flex-col">
+      <NavBar />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar
+          conversations={conversations}
+          activeId={activeId}
+          onSelect={setActiveId}
+          onNewChat={handleNewChat}
         />
+        <div className="flex flex-1 flex-col">
+          <main className="flex-1 overflow-y-auto px-4 py-6">
+            <div className="mx-auto flex max-w-2xl flex-col gap-4">
+              {!active?.messages.length && (
+                <div className="mt-24 text-center text-grok-accent/40">
+                  <p className="text-2xl font-semibold text-grok-accent/70">
+                    Ask anything.
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Free chat powered by Pollinations.ai — no API key required.
+                  </p>
+                </div>
+              )}
+              {active?.messages.map((m) => (
+                <MessageBubble key={m.id} message={m} />
+              ))}
+            </div>
+          </main>
+          <ComposerBar
+            model={model}
+            onModelChange={setModel}
+            onSend={handleSend}
+            disabled={busy}
+          />
+        </div>
       </div>
     </div>
   );

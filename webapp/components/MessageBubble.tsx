@@ -20,28 +20,9 @@ export default function MessageBubble({ message }: { message: Message }) {
             <span className="h-2 w-2 animate-bounce rounded-full bg-grok-accent/60" />
           </div>
         ) : (
-          <>
-            {message.content && (
-              <div className="prose-grok text-sm leading-relaxed">
-                <ReactMarkdown>{message.content}</ReactMarkdown>
-              </div>
-            )}
-            {message.attachment?.type === "image" && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={message.attachment.url}
-                alt="Generated"
-                className="mt-2 max-w-sm rounded-xl border border-grok-border"
-              />
-            )}
-            {message.attachment?.type === "video" && (
-              <video
-                src={message.attachment.url}
-                controls
-                className="mt-2 max-w-sm rounded-xl border border-grok-border"
-              />
-            )}
-          </>
+          <div className="prose-grok text-sm leading-relaxed">
+            <ReactMarkdown>{message.content}</ReactMarkdown>
+          </div>
         )}
       </div>
     </div>
